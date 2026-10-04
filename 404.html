@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moddities — under construction</title>
+<meta name="description" content="Moddities. Under construction.">
+<meta name="theme-color" content="#0e3f2a">
+<meta property="og:title" content="Moddities">
+<meta property="og:description" content="Under construction.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://moddities.com/">
+<meta property="og:image" content="https://moddities.com/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230e3f2a'/%3E%3Ccircle cx='50' cy='50' r='42' fill='none' stroke='%23d6b06a' stroke-width='8'/%3E%3Cg fill='%23f1e6cc'%3E%3Cpath d='M12.78 12.78H21.78V87.22H12.78Z'/%3E%3Cpath d='M78.22 12.78H87.22V87.22H78.22Z'/%3E%3Cpath d='M12.78 12.78H22.72L50 70.84L77.28 12.78H87.22L50 92Z'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root {
+    --green: #0e3f2a;
+    --ink: #f1e6cc;
+    --gold: #d6b06a;
+    --foil: #f6e6b8;
+    --land: 1.22s; /* when the M touches down: throw delay + 38% of its run */
+  }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: radial-gradient(ellipse at 50% 42%, #155337 0%, var(--green) 48%, #072a1b 100%) fixed;
+    background-color: var(--green);
+    color: var(--ink);
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    display: grid;
+    place-items: center;
+    min-height: 100svh;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* pigment grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .09;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 16px;
+  }
+  .lockup {
+    width: min(78vw, 620px);
+    height: auto;
+    overflow: visible;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ink  { fill: var(--ink); }
+  .ln   { fill: none; stroke: var(--ink); stroke-width: 7.95; }
+  .acc  { fill: none; stroke: var(--gold); }
+
+  #m, #ring, .l, #sq { transform-box: fill-box; }
+  #m    { transform-origin: 50% 100%; }   /* the V's point, where it meets the ring */
+  #ring { transform-origin: 50% 50%; }
+  #sq   { opacity: .7; }
+
+  .play #m    { animation: throw 1.9s .5s both; }
+  .play #ring { animation: hit .6s var(--land) both; }
+  .play .l    { animation: jostle .5s calc(var(--land) + var(--i) * 40ms) both; }
+  .play #sq   { animation: square 1.4s 2.45s both; }
+
+  @keyframes throw {
+    0%   { transform: translate(-40px, -330px) rotate(-250deg); opacity: 0;
+           animation-timing-function: cubic-bezier(.45, 0, .9, .6); }
+    6%   { opacity: 1; }
+    38%  { transform: translate(0, 0) rotate(-11deg);
+           animation-timing-function: cubic-bezier(.2, .7, .4, 1); }
+    47%  { transform: translate(2px, -16px) rotate(5deg);
+           animation-timing-function: cubic-bezier(.6, 0, .8, .4); }
+    55%  { transform: translate(0, 0) rotate(-6deg);
+           animation-timing-function: cubic-bezier(.2, .7, .4, 1); }
+    61%  { transform: translate(1px, -6px) rotate(3deg);
+           animation-timing-function: cubic-bezier(.6, 0, .8, .4); }
+    66%  { transform: translate(0, 0) rotate(-3.5deg);
+           animation-timing-function: ease-in-out; }
+    76%  { transform: rotate(2deg); }
+    86%  { transform: rotate(-1deg); }
+    100% { transform: none; opacity: 1; }
+  }
+  @keyframes hit {
+    0%   { transform: none; stroke: var(--gold); }
+    18%  { transform: scale(1.03); stroke: var(--foil); }
+    100% { transform: none; stroke: var(--gold); }
+  }
+  @keyframes jostle {
+    0%   { transform: none; }
+    30%  { transform: translateX(6px); }
+    65%  { transform: translateX(-2px); }
+    100% { transform: none; }
+  }
+  @keyframes square {
+    0%   { opacity: 0; }
+    3%   { opacity: 1; stroke: var(--foil); stroke-width: 2.6; }
+    100% { opacity: .7; stroke: var(--gold); stroke-width: 1.4; }
+  }
+
+  .status {
+    margin: clamp(32px, 6vw, 56px) 0 0;
+    padding-left: .32em; /* balances the trailing letter-space */
+    font-size: clamp(11px, 1.5vw, 14px);
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: rgb(241 230 204 / .72);
+    animation: fade .9s 2.6s both;
+  }
+  .cursor { color: var(--gold); animation: blink 1.1s steps(1) infinite; }
+  @keyframes fade  { from { opacity: 0; transform: translateY(4px); } }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <svg class="lockup play" viewBox="-14.42 -14.42 688.01 128.84" role="img" aria-label="Moddities">
+    <title>Moddities</title>
+    <circle id="ring" class="acc" cx="50" cy="50" r="56.42" stroke-width="7.95"/>
+    <rect id="sq" class="acc" x="0" y="0" width="100" height="100" stroke-width="1.4"/>
+    <g id="m" class="ink">
+      <path d="M0 0 L0 100 L7.95 100 L7.95 0 Z"/>
+      <path d="M0 0 L8.78 0 L50 87.72 L91.22 0 L100 0 L50 106.42 Z"/>
+      <path d="M92.05 0 L100 0 L100 100 L92.05 100 Z"/>
+    </g>
+    <g class="l" style="--i:0"><path class="ln" d="M128.99 3.97 L158.06 3.97 A46.99 46.99 0 0 1 158.06 96.03 L128.99 96.03 Z" stroke-linejoin="miter"/></g>
+    <g class="l" style="--i:1"><path class="ln" d="M239.99 3.97 L269.06 3.97 A46.99 46.99 0 0 1 269.06 96.03 L239.99 96.03 Z" stroke-linejoin="miter"/></g>
+    <g class="l ink" style="--i:2"><rect x="350.02" y="0" width="7.95" height="100"/></g>
+    <g class="l ink" style="--i:3"><rect x="381.37" y="0" width="78" height="7.95"/><rect x="416.39" y="0" width="7.95" height="100"/></g>
+    <g class="l ink" style="--i:4"><rect x="482.77" y="0" width="7.95" height="100"/></g>
+    <g class="l ink" style="--i:5"><rect x="520.72" y="0" width="7.95" height="100"/><rect x="520.72" y="0" width="60" height="7.95"/><rect x="520.72" y="43.03" width="54" height="7.95"/><rect x="520.72" y="92.05" width="60" height="7.95"/></g>
+    <g class="l" style="--i:6"><path class="ln" d="M656.52 14.93 A22.16 22.16 0 1 0 636.96 47.5 A24.66 24.66 0 1 1 615.18 83.74" stroke-linecap="butt"/></g>
+  </svg>
+  <p class="status">Under construction<span class="cursor">_</span></p>
+</main>
+<script>
+  // tap the mark to throw the M again
+  const mark = document.querySelector('.lockup');
+  mark.addEventListener('click', () => {
+    mark.classList.remove('play');
+    mark.getBoundingClientRect();
+    mark.classList.add('play');
+  });
+</script>
+</body>
+</html>
