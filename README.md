@@ -1,7 +1,7 @@
 # modditys.com
 
 The temporary under-construction page for Moddities, served by GitHub Pages from `main` at https://modditys.com.
-(The repo is named moddities.com; the domain we hold is modditys.com.)
+The wordmark reads MODDITYS to match the domain: the brand lockup with its "IE" redrawn as a Y (same 7.95 monoline, arms meeting at 45, the height of the E's old middle bar).
 
 - `index.html` is the whole page: the MoDDITIES lockup inline (from `~/moddities/brand/svg/lockup-mo_ddities_full`), with the throw animation in CSS. Tap the mark to throw the M again.
 - `404.html` is a copy of `index.html`, so every path lands on the page. After editing, run `cp index.html 404.html`.
